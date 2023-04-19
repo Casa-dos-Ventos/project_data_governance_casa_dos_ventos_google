@@ -1,0 +1,9 @@
+pandas>=1.4.0
+google-api-python-client>=2.52.0
+google-api-core>=2.8.1
+google-cloud-storage>=1.35.0
+google-cloud-bigquery>=2.6.2
+google-cloud-bigquery-storage>=2.1.0
+google-cloud-iam>=2.6.1
+google-auth>=2.6.2
+pandas-gbq>=0.17.5

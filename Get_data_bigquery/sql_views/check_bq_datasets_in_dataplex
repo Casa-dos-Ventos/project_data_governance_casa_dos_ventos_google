@@ -1,0 +1,53 @@
+WITH dist_datasets AS (
+  SELECT DISTINCT DATE(date_extraction) date_extraction_bq,
+  project_id as project_id_bq,
+  dataset_id  as dataset_id_bq,
+  location as location_bq
+  from `project.dataset.bigquery_tables_analysis`
+)
+
+
+SELECT 
+T.date_extraction_bq,
+T.project_id_bq,
+T.dataset_id_bq,
+T.location_bq,
+A.date_extraction as date_extraction_dataplex,
+A.project_asset,
+A.location_asset,
+A.lake_asset,
+A.zone_asset,
+A.name_asset,
+A.create_time_asset,
+A.update_time_asset,
+A.state_asset,
+A.project_resource_spec,
+A.name_resource_spec,
+A.type_resource_spec,
+A.state_resource_status,
+A.update_time_resource_status,
+A.state_security_status,
+A.update_time_security_status,
+A.enabled_discovery_spec,
+A.csv_options_delimiter_discovery_spec,
+A.csv_options_encoding_discovery_spec,
+A.json_options_encoding_discovery_spec,
+A.schedule_discovery_spec,
+A.state_discovery_status,
+A.update_time_discovery_status,
+A.lastrun_time_discovery_status,
+A.data_items_discovery_status,
+A.data_size_discovery_status,
+A.stats_tables_discovery_status,
+A.lastrun_duration_discovery_status,
+A.log_time as log_time_dataplex
+
+ FROM dist_datasets T
+
+
+LEFT JOIN `project.dataset.dataplex_assets_analysis` A
+ON
+A.project_resource_spec = T.project_id_bq AND
+A.name_resource_spec = T.dataset_id_bq AND
+DATE(A.date_extraction) = T.date_extraction_bq AND
+type_resource_spec = 'BIGQUERY_DATASET'
